@@ -165,6 +165,7 @@
   </section>
 
   <div class="container">
+
     <div class="card" id="admin" style="display:none;">
       <h3>Bookings Admin (Private)</h3>
       <p>This section shows all booking requests saved on this device.</p>
@@ -187,6 +188,7 @@
         </table>
       </div>
     </div>
+
     <div class="card" id="adminGate">
       <h3>Admin Access</h3>
       <p>Enter PIN to view bookings.</p>
@@ -194,16 +196,18 @@
       <button onclick="openAdmin()" style="margin-top:0.5rem;">Open Admin</button>
       <p id="adminStatus" style="margin-top:0.5rem; color:#dc2626;"></p>
     </div>
-    </div>
+
     <div class="card" id="about">
-      <h3>Our Services</h3>
+      <h3>Our Services & Prices</h3>
       <p>We provide quality tents and decoration services for all kinds of events.</p>
       <ul>
-        <li>9m x 20m Tents</li>
-        <li>9m x 16m Tents</li>
-        <li>9m x 12m Tents</li>
-        <li>Green Carpet Included</li>
+        <li><strong>9m x 20m Tent</li>
+        <li><strong>9m x 16m Tent</li>
+        <li><strong>9m x 12m Tent </li>
+        <li>Green Carpet – Included</li>
+        <li>Decor (colors & setup) – Price on request</li>
       </ul>
+      <p style="margin-top:1rem;"><strong>Contact:</strong><br />Phone / WhatsApp: <strong>072 454 7659</strong><br />Location: KwaZulu-Natal</p>
     </div>
       <p style="margin-top:0.5rem; font-size:0.9rem; color:#555;">Image file name must match <strong>exactly</strong>. Current file name used: <strong>Jundlela post.jpg</strong></p>
     </div>
@@ -253,9 +257,7 @@
           What do you need?<br />
           <textarea id="userMessage" rows="4" placeholder="Tents, chairs, tables, décor colors, etc." required></textarea>
         </label><br /><br />
-        <button onclick="window.open('https://wa.me/27724547659', '_blank')">
-  Test WhatsApp
-</button>
+        
 
 
         <button type="submit">Submit Booking Request</button>
@@ -293,17 +295,18 @@
 
       // WhatsApp integration (CHANGE THE NUMBER BELOW)
       const whatsappNumber = "27724547659"; // example: 27 + SA number without 0
-      const message = `New Booking Request - Jundlela Trading%0A%0A` +
-        `Name: ${booking.name}%0A` +
-        `Phone: ${booking.phone}%0A` +
-        `Email: ${booking.email || 'N/A'}%0A` +
-        `Event: ${booking.eventType}%0A` +
-        `Date: ${booking.eventDate}%0A` +
-        `Location: ${booking.location}%0A` +
-        `Details: ${booking.details}`;
+      const message = `*NEW BOOKING REQUEST*%0A*Jundlela Trading*%0A%0A` +
+        `👤 Name: ${booking.name}%0A` +
+        `📞 Phone: ${booking.phone}%0A` +
+        `📧 Email: ${booking.email || 'N/A'}%0A` +
+        `🎉 Event: ${booking.eventType}%0A` +
+        `📅 Date: ${booking.eventDate}%0A` +
+        `📍 Location: ${booking.location}%0A%0A` +
+        `📝 Details:%0A${booking.details}`;
 
       const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-      window.open(whatsappURL, '_blank');
+      // Use location.href to avoid popup blocking on mobile
+      window.location.href = whatsappURL;
 
       document.getElementById("formStatus").innerText =
         "Thank you, " + booking.name + "! Your booking request has been sent on WhatsApp.";
