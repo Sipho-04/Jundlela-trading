@@ -254,7 +254,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     `Details: ${booking.details}`
   );
 
-  window.location.href = `https://wa.me/REPLACE_WITH_SISTER_NUMBER?text=${message}`;
+  window.location.href = `https://api.whatsapp.com/send?phone=27720276776&text=${message}`;
   document.getElementById('formStatus').innerText = 'Booking sent via WhatsApp';
   e.target.reset();
 });
@@ -262,3 +262,4 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
 
 </body>
 </html>
+
