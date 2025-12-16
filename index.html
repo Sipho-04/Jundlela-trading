@@ -19,6 +19,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
     nav a {
       color: #fff;
@@ -26,24 +27,12 @@
       text-decoration: none;
       font-weight: bold;
     }
-    nav a:hover { text-decoration: underline; }
     .hero {
       padding: 3rem 2rem;
       text-align: center;
       background: linear-gradient(135deg, #2563eb, #1e40af);
       color: white;
     }
-    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .hero button {
-      padding: 0.8rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #22c55e;
-      color: #fff;
-    }
-    .hero button:hover { background: #16a34a; }
     .container {
       max-width: 1000px;
       margin: 2rem auto;
@@ -55,43 +44,21 @@
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       margin-bottom: 2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
-    }
-
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 0.7rem;
       border-radius: 8px;
       border: 1px solid #cbd5e1;
       font-size: 1rem;
-      outline: none;
     }
-    input:focus, textarea:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
-    }
-
-    form button {
-      background: #2563eb;
-      color: white;
+    button {
       padding: 0.7rem 1.5rem;
-      border: none;
       border-radius: 8px;
+      border: none;
       cursor: pointer;
-      font-size: 1rem;
-    }
-    form button:hover {
-      background: #1e40af;
-    }
-
-    #formStatus {
-      margin-top: 1rem;
-      color: #16a34a;
-      font-weight: bold;
+      background: #2563eb;
+      color: #fff;
     }
     footer {
       text-align: center;
@@ -99,265 +66,199 @@
       background: #e5e7eb;
       margin-top: 2rem;
     }
-  
-    /* MOBILE RESPONSIVENESS */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav {
-        margin-top: 0.5rem;
-      }
-      nav a {
-        margin-left: 0;
-        margin-right: 1rem;
-      }
-      .hero h1 {
-        font-size: 1.8rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-      .container {
-        margin: 1rem auto;
-      }
-      .card {
-        padding: 1.2rem;
-      }
-      table {
-        font-size: 0.85rem;
-      }
-      button {
-        width: 100%;
-        margin-top: 0.5rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero {
-        padding: 2rem 1rem;
-      }
-      .hero button {
-        width: 100%;
-      }
-      input, textarea, select {
-        font-size: 0.95rem;
-      }
-    }
   </style>
 </head>
 <body>
 
-  <header>
-    <h2>Jundlela Trading</h2>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+  <h2>Jundlela Trading</h2>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">Services</a>
+    <a href="#contact">Book</a>
+  </nav>
+</header>
 
-  <section class="hero" id="home">
-    <h1>Jundlela Trading</h1>
-    <p>Tent & Decoration Hire for Weddings, Funerals, Birthdays and Church Events</p>
-    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Now</button>
-  </section>
+<section class="hero" id="home">
+  <h1>Jundlela Trading</h1>
+  <p>Tent & Decoration Hire</p>
+</section>
 
-  <div class="container">
+<div class="container">
 
-    <div class="card" id="admin" style="display:none;">
-      <h3>Bookings Admin (Private)</h3>
-      <p>This section shows all booking requests saved on this device.</p>
-      <button onclick="loadBookings()">Load Bookings</button>
-      <button onclick="clearBookings()" style="margin-left:0.5rem; background:#dc2626;">Clear All</button>
-      <div style="overflow-x:auto; margin-top:1rem;">
-        <table id="bookingsTable" border="1" cellpadding="8" style="border-collapse:collapse; width:100%;">
-          <thead>
-            <tr style="background:#e5e7eb;">
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Event</th>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Details</th>
-              <th>Saved At</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card" id="adminGate">
-      <h3>Admin Access</h3>
-      <p>Enter PIN to view bookings.</p>
-      <input type="password" id="adminPin" placeholder="Enter PIN" />
-      <button onclick="openAdmin()" style="margin-top:0.5rem;">Open Admin</button>
-      <p id="adminStatus" style="margin-top:0.5rem; color:#dc2626;"></p>
-    </div>
-
-    <div class="card" id="about">
-      <h3>Our Services & Prices</h3>
-      <p>We provide quality tents and decoration services for all kinds of events.</p>
-      <ul>
-        <li><strong>9m x 20m Tent</li>
-        <li><strong>9m x 16m Tent</li>
-        <li><strong>9m x 12m Tent </li>
-        <li>Green Carpet – Included</li>
-        <li>Decor (colors & setup) – Price on request</li>
-      </ul>
-      <p style="margin-top:1rem;"><strong>Contact:</strong><br />Phone / WhatsApp: <strong>0720276776</strong><br />Location: Jozini/KwaZulu-Natal</p>
-    </div>
-      <p style="margin-top:0.5rem; font-size:0.9rem; color:#555;">Image file name must match <strong>exactly</strong>. Current file name used: <strong>Jundlela post.jpg</strong></p>
-    </div>
-
-    <div class="card" id="contact">
-      <h3>Tent & Decoration Booking Request</h3>
-      <form id="contactForm">
-        <label>
-          Full Name<br />
-          <input type="text" id="name" required />
-        </label><br /><br />
-
-        <label>
-          Phone Number<br />
-          <input type="tel" id="phone" placeholder="e.g. 071 234 5678" required />
-        </label><br /><br />
-
-        <label>
-          Email (optional)<br />
-          <input type="email" id="email" />
-        </label><br /><br />
-
-        <label>
-          Event Type<br />
-          <select id="eventType" required>
-            <option value="">-- Select Event --</option>
-            <option>Wedding</option>
-            <option>Birthday</option>
-            <option>Funeral</option>
-            <option>Graduation</option>
-            <option>Church Event</option>
-            <option>Other</option>
-          </select>
-        </label><br /><br />
-
-        <label>
-          Event Date<br />
-          <input type="date" id="eventDate" required />
-        </label><br /><br />
-
-        <label>
-          Location / Address<br />
-          <input type="text" id="location" required />
-        </label><br /><br />
-
-        <label>
-          What do you need?<br />
-          <textarea id="userMessage" rows="4" placeholder="Tents, chairs, tables, décor colors, etc." required></textarea>
-        </label><br /><br />
-        
-
-
-        <button type="submit">Submit Booking Request</button>
-      </form>
-      <p id="formStatus"></p>
-    </div>
+  <!-- ADMIN ACCESS -->
+  <div class="card" id="adminGate">
+    <h3>Admin Access</h3>
+    <input type="password" id="adminPin" placeholder="Enter PIN" />
+    <button id="openAdminBtn">Open Admin</button>
+    <p id="adminStatus" style="color:red;"></p>
   </div>
 
-  <footer>
-    <p>© 2025 Jundlela Trading</p>
-  </footer>
+  <!-- ADMIN PANEL -->
+  <div class="card" id="admin" style="display:none;">
+    <h4>Change Admin PIN</h4>
+    <input type="password" id="newPin" placeholder="New PIN" />
+    <button onclick="changePin()">Change PIN</button>
+    <hr />
+    <h3>Bookings Admin</h3>
+    <button id="loadBookingsBtn">Load Bookings</button>
+    <button id="clearBookingsBtn">Clear All</button>
+    <table border="1" width="100%" style="margin-top:1rem; border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Location</th>
+          <th>Details</th>
+          <th>Saved</th>
+        </tr>
+      </thead>
+      <tbody id="bookingsBody"></tbody>
+    </table>
+  </div>
 
-  <script>
-    function changeMessage() {
-      document.getElementById("message").innerText = "JavaScript is working! 🎉";
-    }
+  <!-- SERVICES -->
+  <div class="card" id="about">
+    <h3>Services</h3>
+    <ul>
+      <li>9m x 20m Tent</li>
+      <li>9m x 16m Tent</li>
+      <li>9m x 12m Tent</li>
+      <li>Green Carpet Included</li>
+    </ul>
+  </div>
 
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
+  <!-- BOOKING FORM -->
+  <div class="card" id="contact">
+    <h3>Booking Request</h3>
+    <form id="contactForm">
+      <input id="name" placeholder="Full Name" required />
+      <br /><br />
+      <input id="phone" placeholder="Phone" required />
+      <br /><br />
+      <select id="eventType" required>
+        <option value="">Select Event</option>
+        <option>Wedding</option>
+        <option>Funeral</option>
+        <option>Birthday</option>
+      </select>
+      <br /><br />
+      <input type="date" id="eventDate" required />
+      <br /><br />
+      <input id="location" placeholder="Location" required />
+      <br /><br />
+      <textarea id="details" placeholder="Details" required></textarea>
+      <br /><br />
+      <button type="submit">Submit</button>
+    </form>
+    <p id="formStatus"></p>
+  </div>
+</div>
 
-      const booking = {
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        email: document.getElementById("email").value,
-        eventType: document.getElementById("eventType").value,
-        eventDate: document.getElementById("eventDate").value,
-        location: document.getElementById("location").value,
-        details: document.getElementById("userMessage").value,
-        createdAt: new Date().toLocaleString()
-      };
+<footer>© 2025 Jundlela Trading</footer>
 
-      let bookings = JSON.parse(localStorage.getItem("jundlelaBookings")) || [];
-      bookings.push(booking);
-      localStorage.setItem("jundlelaBookings", JSON.stringify(bookings));
+<script>
+/***************************
+ * ADMIN FUNCTIONS
+ ***************************/
+function openAdmin() {
+  let ADMIN_PIN = localStorage.getItem('adminPin') || '1234';
+  const pinInput = document.getElementById('adminPin').value;
+  if (pinInput === ADMIN_PIN) {
+    document.getElementById('admin').style.display = 'block';
+    document.getElementById('adminGate').style.display = 'none';
+  } else {
+    document.getElementById('adminStatus').innerText = 'Incorrect PIN';
+  }
+}
 
-      // WhatsApp integration (CHANGE THE NUMBER BELOW)
-      const whatsappNumber = "27724547659"; // example: 27 + SA number without 0
-      const message = `*NEW BOOKING REQUEST*%0A*Jundlela Trading*%0A%0A` +
-        `👤 Name: ${booking.name}%0A` +
-        `📞 Phone: ${booking.phone}%0A` +
-        `📧 Email: ${booking.email || 'N/A'}%0A` +
-        `🎉 Event: ${booking.eventType}%0A` +
-        `📅 Date: ${booking.eventDate}%0A` +
-        `📍 Location: ${booking.location}%0A%0A` +
-        `📝 Details:%0A${booking.details}`;
+function loadBookings() {
+  const body = document.getElementById('bookingsBody');
+  body.innerHTML = '';
+  const bookings = JSON.parse(localStorage.getItem('jundlelaBookings')) || [];
 
-      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-      // Use location.href to avoid popup blocking on mobile
-      window.location.href = whatsappURL;
+  if (bookings.length === 0) {
+    body.innerHTML = '<tr><td colspan="7">No bookings</td></tr>';
+    return;
+  }
 
-      document.getElementById("formStatus").innerText =
-        "Thank you, " + booking.name + "! Your booking request has been sent on WhatsApp.";
+  bookings.forEach(b => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${b.name}</td>
+      <td>${b.phone}</td>
+      <td>${b.event}</td>
+      <td>${b.date}</td>
+      <td>${b.location}</td>
+      <td>${b.details}</td>
+      <td>${b.time}</td>
+    `;
+    body.appendChild(row);
+  });
+}
 
-      this.reset();
-    });
-  function loadBookings() {
-      const tbody = document.querySelector('#bookingsTable tbody');
-      tbody.innerHTML = '';
-      const bookings = JSON.parse(localStorage.getItem('jundlelaBookings')) || [];
+function clearBookings() {
+  if (!confirm('Clear all bookings?')) return;
+  localStorage.setItem('jundlelaBookings', JSON.stringify([]));
+  loadBookings();
+}
 
-      if (bookings.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No bookings yet</td></tr>';
-        return;
-      }
+function changePin() {
+  const newPin = document.getElementById('newPin').value;
+  if (!newPin || newPin.length < 4) {
+    alert('PIN must be at least 4 digits');
+    return;
+  }
+  localStorage.setItem('adminPin', newPin);
+  ADMIN_PIN = newPin;
+  alert('Admin PIN changed successfully');
+  document.getElementById('newPin').value = '';
+}
 
-      bookings.forEach(b => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${b.name}</td>
-          <td>${b.phone}</td>
-          <td>${b.eventType}</td>
-          <td>${b.eventDate}</td>
-          <td>${b.location}</td>
-          <td>${b.details}</td>
-          <td>${b.createdAt}</td>
-        `;
-        tbody.appendChild(row);
-      });
-    }
+/***************************
+ * EVENT BINDINGS (SAFE)
+ ***************************/
+document.getElementById('openAdminBtn').addEventListener('click', openAdmin);
+document.getElementById('loadBookingsBtn').addEventListener('click', loadBookings);
+document.getElementById('clearBookingsBtn').addEventListener('click', clearBookings);
 
-    function clearBookings() {
-      if (confirm('Are you sure you want to delete all bookings?')) {
-        localStorage.removeItem('jundlelaBookings');
-        loadBookings();
-      }
-    }
+/***************************
+ * BOOKING FORM
+ ***************************/
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
 
-  function openAdmin() {
-      const PIN = '1234'; // CHANGE THIS PIN
-      const input = document.getElementById('adminPin').value;
-      if (input === PIN) {
-        document.getElementById('admin').style.display = 'block';
-        document.getElementById('adminGate').style.display = 'none';
-      } else {
-        document.getElementById('adminStatus').innerText = 'Incorrect PIN';
-      }
-    }
+  const booking = {
+    name: document.getElementById('name').value,
+    phone: document.getElementById('phone').value,
+    event: document.getElementById('eventType').value,
+    date: document.getElementById('eventDate').value,
+    location: document.getElementById('location').value,
+    details: document.getElementById('details').value,
+    time: new Date().toLocaleString()
+  };
 
-  </script>
+  const bookings = JSON.parse(localStorage.getItem('jundlelaBookings')) || [];
+  bookings.push(booking);
+  localStorage.setItem('jundlelaBookings', JSON.stringify(bookings));
+
+  const message = encodeURIComponent(
+    `NEW BOOKING - Jundlela Trading\n` +
+    `Name: ${booking.name}\n` +
+    `Phone: ${booking.phone}\n` +
+    `Event: ${booking.event}\n` +
+    `Date: ${booking.date}\n` +
+    `Location: ${booking.location}\n` +
+    `Details: ${booking.details}`
+  );
+
+  window.location.href = `https://wa.me/REPLACE_WITH_SISTER_NUMBER?text=${message}`;
+  document.getElementById('formStatus').innerText = 'Booking sent via WhatsApp';
+  e.target.reset();
+});
+</script>
 
 </body>
 </html>
-
