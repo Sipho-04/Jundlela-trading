@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jundlela Trading | Tent & Deco Hire</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+    }
+    header {
+      background: #1e293b;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #fff;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+    .hero {
+      padding: 3rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: white;
+    }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero button {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #22c55e;
+      color: #fff;
+    }
+    .hero button:hover { background: #16a34a; }
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .card {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus, textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+    }
+
+    form button {
+      background: #2563eb;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    form button:hover {
+      background: #1e40af;
+    }
+
+    #formStatus {
+      margin-top: 1rem;
+      color: #16a34a;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #e5e7eb;
+      margin-top: 2rem;
+    }
+  
+    /* MOBILE RESPONSIVENESS */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav {
+        margin-top: 0.5rem;
+      }
+      nav a {
+        margin-left: 0;
+        margin-right: 1rem;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .container {
+        margin: 1rem auto;
+      }
+      .card {
+        padding: 1.2rem;
+      }
+      table {
+        font-size: 0.85rem;
+      }
+      button {
+        width: 100%;
+        margin-top: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 1rem;
+      }
+      .hero button {
+        width: 100%;
+      }
+      input, textarea, select {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h2>Jundlela Trading</h2>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>Jundlela Trading</h1>
+    <p>Tent & Decoration Hire for Weddings, Funerals, Birthdays and Church Events</p>
+    <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Now</button>
+  </section>
+
+  <div class="container">
+    <div class="card" id="admin" style="display:none;">
+      <h3>Bookings Admin (Private)</h3>
+      <p>This section shows all booking requests saved on this device.</p>
+      <button onclick="loadBookings()">Load Bookings</button>
+      <button onclick="clearBookings()" style="margin-left:0.5rem; background:#dc2626;">Clear All</button>
+      <div style="overflow-x:auto; margin-top:1rem;">
+        <table id="bookingsTable" border="1" cellpadding="8" style="border-collapse:collapse; width:100%;">
+          <thead>
+            <tr style="background:#e5e7eb;">
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Event</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Details</th>
+              <th>Saved At</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" id="adminGate">
+      <h3>Admin Access</h3>
+      <p>Enter PIN to view bookings.</p>
+      <input type="password" id="adminPin" placeholder="Enter PIN" />
+      <button onclick="openAdmin()" style="margin-top:0.5rem;">Open Admin</button>
+      <p id="adminStatus" style="margin-top:0.5rem; color:#dc2626;"></p>
+    </div>
+    </div>
+    <div class="card" id="about">
+      <h3>Our Services</h3>
+      <p>We provide quality tents and decoration services for all kinds of events.</p>
+      <ul>
+        <li>9m x 20m Tents</li>
+        <li>9m x 16m Tents</li>
+        <li>9m x 12m Tents</li>
+        <li>Green Carpet Included</li>
+      </ul>
+    </div>
+      <p style="margin-top:0.5rem; font-size:0.9rem; color:#555;">Image file name must match <strong>exactly</strong>. Current file name used: <strong>Jundlela post.jpg</strong></p>
+    </div>
+
+    <div class="card" id="contact">
+      <h3>Tent & Decoration Booking Request</h3>
+      <form id="contactForm">
+        <label>
+          Full Name<br />
+          <input type="text" id="name" required />
+        </label><br /><br />
+
+        <label>
+          Phone Number<br />
+          <input type="tel" id="phone" placeholder="e.g. 071 234 5678" required />
+        </label><br /><br />
+
+        <label>
+          Email (optional)<br />
+          <input type="email" id="email" />
+        </label><br /><br />
+
+        <label>
+          Event Type<br />
+          <select id="eventType" required>
+            <option value="">-- Select Event --</option>
+            <option>Wedding</option>
+            <option>Birthday</option>
+            <option>Funeral</option>
+            <option>Graduation</option>
+            <option>Church Event</option>
+            <option>Other</option>
+          </select>
+        </label><br /><br />
+
+        <label>
+          Event Date<br />
+          <input type="date" id="eventDate" required />
+        </label><br /><br />
+
+        <label>
+          Location / Address<br />
+          <input type="text" id="location" required />
+        </label><br /><br />
+
+        <label>
+          What do you need?<br />
+          <textarea id="userMessage" rows="4" placeholder="Tents, chairs, tables, décor colors, etc." required></textarea>
+        </label><br /><br />
+        <button onclick="window.open('https://wa.me/27724547659', '_blank')">
+  Test WhatsApp
+</button>
+
+
+        <button type="submit">Submit Booking Request</button>
+      </form>
+      <p id="formStatus"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Jundlela Trading</p>
+  </footer>
+
+  <script>
+    function changeMessage() {
+      document.getElementById("message").innerText = "JavaScript is working! 🎉";
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const booking = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        email: document.getElementById("email").value,
+        eventType: document.getElementById("eventType").value,
+        eventDate: document.getElementById("eventDate").value,
+        location: document.getElementById("location").value,
+        details: document.getElementById("userMessage").value,
+        createdAt: new Date().toLocaleString()
+      };
+
+      let bookings = JSON.parse(localStorage.getItem("jundlelaBookings")) || [];
+      bookings.push(booking);
+      localStorage.setItem("jundlelaBookings", JSON.stringify(bookings));
+
+      // WhatsApp integration (CHANGE THE NUMBER BELOW)
+      const whatsappNumber = "27724547659"; // example: 27 + SA number without 0
+      const message = `New Booking Request - Jundlela Trading%0A%0A` +
+        `Name: ${booking.name}%0A` +
+        `Phone: ${booking.phone}%0A` +
+        `Email: ${booking.email || 'N/A'}%0A` +
+        `Event: ${booking.eventType}%0A` +
+        `Date: ${booking.eventDate}%0A` +
+        `Location: ${booking.location}%0A` +
+        `Details: ${booking.details}`;
+
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
+      window.open(whatsappURL, '_blank');
+
+      document.getElementById("formStatus").innerText =
+        "Thank you, " + booking.name + "! Your booking request has been sent on WhatsApp.";
+
+      this.reset();
+    });
+  function loadBookings() {
+      const tbody = document.querySelector('#bookingsTable tbody');
+      tbody.innerHTML = '';
+      const bookings = JSON.parse(localStorage.getItem('jundlelaBookings')) || [];
+
+      if (bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No bookings yet</td></tr>';
+        return;
+      }
+
+      bookings.forEach(b => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${b.name}</td>
+          <td>${b.phone}</td>
+          <td>${b.eventType}</td>
+          <td>${b.eventDate}</td>
+          <td>${b.location}</td>
+          <td>${b.details}</td>
+          <td>${b.createdAt}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function clearBookings() {
+      if (confirm('Are you sure you want to delete all bookings?')) {
+        localStorage.removeItem('jundlelaBookings');
+        loadBookings();
+      }
+    }
+
+  function openAdmin() {
+      const PIN = '1234'; // CHANGE THIS PIN
+      const input = document.getElementById('adminPin').value;
+      if (input === PIN) {
+        document.getElementById('admin').style.display = 'block';
+        document.getElementById('adminGate').style.display = 'none';
+      } else {
+        document.getElementById('adminStatus').innerText = 'Incorrect PIN';
+      }
+    }
+
+  </script>
+
+</body>
+</html>
